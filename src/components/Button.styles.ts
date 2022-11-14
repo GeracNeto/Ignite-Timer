@@ -20,7 +20,7 @@ border-radius: 4px;
 border: 0;
 margin: 8px;
 
-background-color: ${props => props.theme.primary}
+background-color: ${props => props.theme['green-500']}
 
 /*
 ${props => {
