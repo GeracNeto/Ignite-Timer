@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as zod from "zod";
 
+import { useState } from "react";
+
 import {
   CountdownContainer,
   FormContainer,
@@ -27,7 +29,17 @@ const newCiclyFormValidationSchema = zod.object({
 // Cria a tipagem do formulário com base na validação dos dados
 type NewCycleFormData = zod.infer<typeof newCiclyFormValidationSchema>;
 
+interface Cycle {
+  id: string;
+  task: string;
+  minutesAmount: number;
+}
+
 export function Home() {
+  const [cycles, setCycles] = useState<Cycle[]>([]);
+  const [activeCycleId, setActiveCycleId] = useState<string | null>(null);
+  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0);
+
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
     resolver: zodResolver(newCiclyFormValidationSchema),
     defaultValues: {
@@ -37,9 +49,29 @@ export function Home() {
   });
 
   function handleCreateNewCycle(data: NewCycleFormData) {
-    console.log(data);
+    const id = String(new Date().getTime());
+
+    const newCycle: Cycle = {
+      id,
+      task: data.task,
+      minutesAmount: data.minutesAmount,
+    };
+
+    setCycles((state) => [...state, newCycle]);
+    setActiveCycleId(id);
     reset();
   }
+
+  const activeCycle = cycles.find((cycle) => cycle.id === activeCycleId);
+
+  const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0;
+  const currentSeconds = activeCycle ? totalSeconds - amountSecondsPassed : 0;
+
+  const minutesAmount = Math.floor(currentSeconds / 60);
+  const secondsAmount = currentSeconds % 60;
+
+  const minutes = String(minutesAmount).padStart(2, "0");
+  const seconds = String(secondsAmount).padStart(2, "0");
 
   const task = watch("task");
   const isSubmitDisabled = !task;
@@ -79,11 +111,11 @@ export function Home() {
         </FormContainer>
 
         <CountdownContainer>
-          <span>0</span>
-          <span>0</span>
+          <span>{minutes[0]}</span>
+          <span>{minutes[1]}</span>
           <Separator>:</Separator>
-          <span>0</span>
-          <span>0</span>
+          <span>{seconds[0]}</span>
+          <span>{seconds[1]}</span>
         </CountdownContainer>
 
         <StartCountdownButton disabled={isSubmitDisabled} type="submit">
