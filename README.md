@@ -1,6 +1,8 @@
 # ⏲️ Ignite Timer
 
-## Este projeto foi desenvolvido durante o curso Ignite da Rocketseat, utilizando React.js, TypeScript e o Vite como plataforma de desenvolvimento. Com o objetivo de fornecer uma eficiente ferramenta de gestão de tempo baseada no método Pomodoro, ele possui duas telas: uma para cronometrar o tempo em andamento da atividade, e outra que mostra o histórico de cada tarefa.
+## Este projeto foi desenvolvido durante o curso Ignite da Rocketseat, utilizando React.js, TypeScript e o Vite como plataforma de desenvolvimento. 
+
+## Com o objetivo de fornecer uma eficiente ferramenta de gestão de tempo baseada no método Pomodoro, ele possui duas telas: uma para cronometrar o tempo em andamento da atividade, e outra que mostra o histórico de cada tarefa.
 
 
 ### Tecnologias utilizadas durante desenvolvimento
