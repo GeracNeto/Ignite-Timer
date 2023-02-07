@@ -92,11 +92,11 @@ export function CyclesContextProvider({
   }
 
   function interruptCurrentCycle() {
-    dispatch(interruptCurrentCycleAction);
+    dispatch(interruptCurrentCycleAction());
   }
 
   function markCurrentCycleAsFinished() {
-    dispatch(markCurrentCycleAsFinishedAction);
+    dispatch(markCurrentCycleAsFinishedAction());
   }
 
   return (
